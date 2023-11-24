@@ -1,0 +1,33 @@
+﻿@model Role
+@{
+    ViewData["Title"] = "حذف نقش - سطح استان";
+}
+
+<h6 class="my-3 cursor"><img src="~/icons/grid-icon.png" class="mx-2" />فرم مشخصات نقش <span class="text-info font-alertLogin ">(@Model.RoleTitle)</span></h6>
+<form asp-controller="Management" asp-action="DeleteRole" method="post">
+<table id="myTable" class="table border table-striped table-bordered mt-2 mx-auto w-50 ">
+    <thead>
+        <tr>
+            <th scope="col">شناسه</th>
+            <th scope="col">عنوان نقش سازمانی</th>
+        </tr>
+    </thead>
+    <tbody class="table-custom--1">
+        <tr>
+            <td>@Model.RoleId</td>
+            <td>@Model.RoleTitle</td>
+        </tr>
+    </tbody>
+</table>
+<input type="hidden" name="roleId" value="@Model.RoleId" />
+<p class="custom-font--4 px-2 cursor">
+    <i class="fa fa-exclamation-circle fa-lg text-warning mr-1 my-1 mx-2"></i>
+    توجه شود که در صورت حذف یک نقش، دیگر آن نقش قابل اختصاص دادن به فردی نمی باشد.
+</p>
+<div class="d-flex justify-content-center row m-0 p-0">
+    <input type="submit" class="btn btn-danger w-25 text-light" value="حذف">
+    <div class="btn btn-primary mx-1">
+        <a asp-controller="Management" asp-action="DisplayRolesdb" class="text-decoration-none text-light">&larr;</a>
+    </div>
+</div>
+</form>

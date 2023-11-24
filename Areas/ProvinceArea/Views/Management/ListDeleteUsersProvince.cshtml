@@ -1,0 +1,51 @@
+﻿@model InformationViewModel
+@using ERP.Convertors
+@{
+    ViewData["Title"] = "حذف کارکنان استان - سطح استان";
+}
+<h6 class="my-3 cursor"><img src="~/icons/grid-icon.png" class="mx-2" />فرم مشخصات کاربر <span class="text-info font-alertLogin ">(@Model.nationalCode)</span></h6>
+
+<form asp-controller="Management" asp-action="ListDeleteUsersProvince" method="post">
+    <table id="myTable" class="table border table-striped table-bordered mt-2 mx-auto w-75 table-custom--2">
+        <thead>
+            <tr>
+                <th scope="col" class="border-bottom-0"></th>
+                <th scope="col">شناسه</th>
+                <th scope="col">نام کاربری</th>
+                <th scope="col">شعبه</th>
+                <th scope="col">نقش</th>
+                <th scope="col">نام</th>
+                <th scope="col">نام خانوادگی</th>
+                <th scope="col">وضعیت استخدامی</th>
+                <th scope="col">کارکرد</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="bg-white border-top-0">
+                    <img src="/UserAvatar/ProvinceArea/@(Model.nationalCode).png"
+                         class="thumbnail mt-md-n5 mb-md-n2 rounded-circle border" id="listDeleteImgAvatar" />
+                </td>
+                <td>@Model.userId</td>
+                <td>@Model.nationalCode</td>
+                <td>@Model.department</td>
+                <td>@Model.role</td>
+                <td>@Model.fName</td>
+                <td>@Model.lName</td>
+                <td>@Model.employmentStatus</td>
+                <td>@Model.workingStatus</td>
+            </tr>
+        </tbody>
+    </table>
+    <input type="hidden" name="nationalCode" value="@Model.nationalCode" />
+    <p class="custom-font--4 px-2 cursor">
+        <i class="fa fa-exclamation-circle fa-lg text-warning mr-1 my-1 mx-2"></i>
+        توجه شود که در صورت تایید حذف، تمامی مدارک بارگذاری شده توسط کاربر مورد حذف، غیرفعال خواهد شد.
+    </p>
+    <div class="d-flex justify-content-center row m-0 p-0">
+        <input type="submit" class="btn btn-danger w-25 text-light" value="حذف">
+        <div class="btn btn-primary mx-1">
+            <a asp-controller="Management" asp-action="DisplayProvincedb" class="text-decoration-none text-light">&larr;</a>
+        </div>
+    </div>
+</form>

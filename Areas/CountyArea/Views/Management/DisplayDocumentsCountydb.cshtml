@@ -1,0 +1,65 @@
+﻿@model IEnumerable<DocumentUploadCountyLevel>
+@using ERP.Convertors
+@{
+    ViewData["Title"] = "مدیریت مدارک شهرستان - سطح شهرستان";
+}
+
+<div class="btn btn-outline-primary btn-sm  my-1 mx-3">نمایش مدارک سطح شهرستان</div>
+<div class="row mx-0 mt-1 p-0">
+    <div class=" col-md-5 p-0 ml-3">
+        <input type="text" id="searchDocuments" class="form-control w-100 " placeholder="مقداری را وارد کنید ..." autocomplete="off" />
+    </div>
+    <div class=" col-md-4 d-flex justify-content-center">
+        <select class="form-control w-100" id="filter">
+            <option selected>فیلتر جست و جو را انتخاب کنید</option>
+            <option value="2">معاونت بارگذاری کننده</option>
+            <option value="3">نام کاربری</option>
+            <option value="5">شعبه</option>
+            <option value="6">عنوان </option>
+            <option value="9">تاریخ بارگذاری - روز(DD)/ماه(MM)/سال(YYYY)</option>
+        </select>
+    </div>
+    <div class=" col-md-2 pl-0">
+        <button class="btn btn-info" onclick="searchDocuments()" id="search-btn">
+            <i class="fa fa-search mx-2"></i>
+        </button>
+    </div>
+</div>
+<table id="myTable" class="table border table-striped table-bordered mt-2 mx-auto table-custom--4">
+    <thead>
+        <tr>
+            <th scope="col" class="hidden">شناسه</th>
+            <th scope="col">معاونت<br />بارگذاری کننده</th>
+            <th scope="col">نام کاربری</th>
+            <th scope="col" class="hidden"></th>
+            <th scope="col">شعبه</th>
+            <th scope="col">عنوان</th>
+            <th scope="col">نام فایل</th>
+            <th scope="col" class="w-50">توضیحات</th>
+            <th scope="col" class="w-25">تاریخ بارگذاری</th>
+            <th scope="col">دریافت</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td class="hidden">@item.id</td>
+            <td>@item.roleUploader</td>
+            <td>@item.ownerUserId</td>
+            <td class="hidden"></td>
+            <td>@item.department</td>
+            <td>@item.title</td>
+            <td dir="ltr"><span class="custom-fontFamily--1">@item.fileName</span></td>
+            <td class="custom-font--3">@Html.Raw(item.description)</td>
+            <td>@item.uploadDate.ToShamsiMyDocuments()</td>
+            <td class="py-2"><a href="/CountyArea/Management/DownloadDocumentsFromCountyDB/@item.id"><i class="fa fa-download fa-2x text-decoration-none"></i></a></td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div class="alert alert-danger w-25 text-center mx-auto mb-md-3 mt-md-5 hidden cursor" id="notFound">
+    <p class="help-block my-0">موردی یافت نشد.</p>
+</div>
+
+

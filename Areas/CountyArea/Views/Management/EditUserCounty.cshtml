@@ -1,0 +1,301 @@
+﻿@model ERP.Models.EditViewModel
+
+@{
+    ViewData["Title"] = "ویرایش کارکنان شهرستان - سطح شهرستان";
+    List<Role> Roles = ViewData["Roles"] as List<Role>;
+    List<Gender> Genders = ViewData["Genders"] as List<Gender>;
+    List<Employment> Employments = ViewData["Employments"] as List<Employment>;
+    List<Marital> Maritals = ViewData["Maritals"] as List<Marital>;
+    List<Department> Departments = ViewData["Departments"] as List<Department>;
+}
+<div class="btn btn-outline-primary btn-sm  my-1 mx-3">ویرایش در سطح شهرستان</div>
+@if (ViewBag.ErrorUploadPhoto == true)
+{
+    <div class="alert alert-danger w-50 text-center mx-auto mb-md-3 mt-md-n4 cursor" id="alertErrorUploadPhoto">
+        <p class="help-block my-0"> برای تصویر پرسنل فقط فرمت png. مورد پذیرش است.</p>
+    </div>
+    <script>
+        var delay = 5000;
+        setTimeout(function () { document.getElementById("alertEdit").classList.add("hidden") }, delay);
+    </script>
+}
+@if (ViewBag.ErrorData == true)
+{
+    <div class="alert alert-danger w-50 text-center mx-auto mb-md-3 mt-md-n4 cursor" id="alertErrorData">
+        <p class="help-block my-0">تمام اطلاعات مورد نیاز وارد نشده است.</p>
+    </div>
+    <script>
+        var delay = 5000;
+        setTimeout(function () { document.getElementById("alertErrorData").classList.add("hidden") }, delay);
+    </script>
+}
+@if (ViewBag.ErrorIsExistManager == true)
+{
+    <div class="alert alert-danger w-50 text-center mx-auto mb-md-3 mt-md-n4 cursor" id="alertErrorIsExistManager">
+        <p class="help-block my-0">قبلا فرد دیگری در نقش مدیریت ثبت شده است.</p>
+    </div>
+    <script>
+        var delay = 5000;
+        setTimeout(function () { document.getElementById("alertErrorIsExistManager").classList.add("hidden") }, delay);
+    </script>
+}
+<h6 class="my-3"><img src="~/icons/grid-icon.png" class="mx-2" />فرم ویرایش</h6>
+<form asp-controller="Management" asp-action="EditUserCounty" enctype="multipart/form-data" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="userId" />
+    <div class="row p-0 mt-2 mb-0 mx-0">
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="row m-0 p-0">
+                    <div class="col-md-3">
+                        <label asp-for="nationalCode" class="control-label">نام کاربری :</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input asp-for="nationalCode" class="form-control" maxlength="10" autocomplete="off" />
+                        <span asp-validation-for="nationalCode" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row m-0 p-0">
+                    <div class="col-md-3">
+                        <label asp-for="userPass" class="control-label">رمز عبور :</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input asp-for="userPass" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="userPass" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row m-0 p-0">
+                    <div class="col-md-3">
+                        <label asp-for="ReuserPass" class="control-label">تکرار رمز عبور :</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input asp-for="ReuserPass" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="ReuserPass" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row m-0 p-0">
+                    <div class="col-md-3">
+                        <label asp-for="fName" class="control-label">نام :</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input asp-for="fName" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="fName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row m-0 p-0">
+                <div class="col-md-3">
+                    <label asp-for="avatar" class="control-label">تصویر پرسنل :</label>
+                </div>
+                <div class="col-md-7">
+                    <img id="imgAvatar" class="thumbnail border rounded " src="~/UserAvatar/CountyArea/@(Model.nationalCode).png" />
+                    <div class="text-danger custom-font--5"><sup>*</sup>فقط فرمت png. مورد پذیرش است.</div>
+                    <div class="form-group my-2">
+                        <input asp-for="avatar" id="UserAvatar" class="custom-font--4" accept="image/png">
+                        <span asp-validation-for="avatar" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row p-0 m-0">
+        <div class="form-group col-md-6">
+            <div class="row m-0 p-0">
+                <div class="col-md-3">
+                    <label asp-for="lName" class="control-label">نام خانوادگی :</label>
+                </div>
+                <div class="col-md-5">
+                    <input asp-for="lName" class="form-control" />
+                    <span asp-validation-for="lName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="row m-0 p-0">
+                <div class="col-md-3">
+                    <label>شعبه :</label>
+                </div>
+                <div class="form-group col-md-5 d-flex m-0">
+                    @foreach (var item in Departments)
+                    {
+                        <div class="checkbox mr-2">
+                            <label for="department" class="control-label">
+                                <input type="checkbox" class="checkoption--5" name="SelectedDepartment" value="@item.departmentId" @((Model.department.Equals(item.departmentId) ? "checked" : "")) readonly /> @item.departmentTitle
+                            </label>
+                        </div>
+                    }
+                    <span asp-validation-for="department" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+    <div class="row p-0 m-0">
+        <div class="form-group col-md-6">
+            <div class="row m-0 p-0">
+                <div class="col-md-3">
+                    <label>جنسیت :</label>
+                </div>
+                <div class="form-group col-md-5 d-flex m-0">
+                    @foreach (var item in Genders)
+                    {
+                        <div class="checkbox d-flex mr-2">
+                            <label>
+                                <input type="checkbox" class="checkoption--2" name="SelectedGenders" value="@item.genderId" @((Model.userGender.Equals(item.genderId) ? "checked" : "")) /> @item.genderTitle
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="row m-0 p-0">
+                <div class="col-md-3">
+                    <label>نقش پرسنل :</label>
+                </div>
+                <div class="form-group col-md-5 m-0">
+                    @foreach (var item in Roles)
+                    {
+                        <div class="checkbox mr-2">
+                            <label>
+                                <input type="checkbox" class="checkoption" name="SelectedRoles" value="@item.RoleId" @((Model.userRole.Equals(item.RoleId) ? "checked" : "")) /> @item.RoleTitle
+                            </label>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row p-0 m-0">
+        <div class="form-group col-md-6">
+            <div class="row m-0 p-0">
+                <div class="col-md-3">
+                    <label>وضعیت استخدامی :</label>
+                </div>
+                <div class="form-group col-md-5 d-flex m-0">
+                    @foreach (var item in Employments)
+                    {
+                        <div class="checkbox mr-2">
+                            <label>
+                                <input type="checkbox" class="checkoption--3" name="SelectedEmployment" value="@item.EmploymentId" @((Model.employmentStatus.Equals(item.EmploymentId) ? "checked" : "")) /> @item.EmploymentTitle
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="row m-0 p-0">
+                <div class="col-md-3">
+                    <label asp-for="workingStatus" class="control-label">وضعیت :</label>
+                </div>
+                <div class="col-md-5">
+                    <input asp-for="workingStatus" class="form-control" readonly />
+                    <span asp-validation-for="workingStatus" class="text-danger"></span>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row p-0 m-0">
+        <div class="form-group col-md-6">
+            <div class="row m-0 p-0">
+                <div class="col-md-3">
+                    <label asp-for="dateOfBirth" class="control-label">تاریخ تولد :</label>
+                </div>
+                <div class="col-md-5">
+                    <input asp-for="dateOfBirth" placeholder="روز(DD)/ماه(MM)/سال(YYYY)" class="form-control" />
+                    <span asp-validation-for="dateOfBirth" class="text-danger"></span>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="row m-0 p-0">
+                <div class="col-md-3">
+                    <label asp-for="education" class="control-label">تحصیلات :</label>
+                </div>
+                <div class="col-md-5">
+                    <input asp-for="education" class="form-control" />
+                    <span asp-validation-for="education" class="text-danger"></span>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row p-0 m-0">
+        <div class="form-group col-md-6">
+            <div class="row m-0 p-0">
+                <div class="col-md-3">
+                    <label asp-for="tel" class="control-label">شماره تماس :</label>
+                </div>
+                <div class="col-md-5">
+                    <input asp-for="tel" class="form-control" />
+                    <span asp-validation-for="tel" class="text-danger"></span>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="row m-0 p-0">
+                <div class="col-md-3">
+                    <label>وضعیت تاهل :</label>
+                </div>
+                <div class="form-group col-md-5 d-flex m-0">
+                    @foreach (var item in Maritals)
+                    {
+                        <div class="checkbox mr-2">
+                            <label>
+                                <input type="checkbox" class="checkoption--4" name="SelectedMarital" value="@item.maritalId" @((Model.maritalStatus.Equals(item.maritalId) ? "checked" : "")) /> @item.maritalTitle
+                            </label>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-0 p-0">
+        <div class="form-group col-md-6">
+            <div class="row m-0 p-0">
+                <div class="col-md-3">
+                    <label asp-for="address" class="control-label">نشانی محل سکونت :</label>
+                </div>
+                <div class="col-md-5">
+                    <textarea asp-for="address" class="form-control"></textarea>
+                    <span asp-validation-for="address" class="text-danger"></span>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row mx-0 p-0">
+        <div class="form-group col-12 d-flex justify-content-center my-3">
+            <input type="submit" value="ثبت" class="btn btn-primary w-25" />
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+@section Avatar{
+    <script>
+        $("#UserAvatar").change(function () {
+            readURL(this);
+        });
+    </script>
+}

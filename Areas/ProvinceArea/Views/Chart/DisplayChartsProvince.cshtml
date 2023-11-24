@@ -1,0 +1,289 @@
+﻿@{
+    ViewData["Title"] = "گزارش استان - سطح استان";
+}
+<script src="~/js/chartjs/chart.js"></script>
+<div class="btn btn-outline-primary btn-sm my-1 mx-3">گزارش سطح استان</div>
+<div class="w-100 d-flex my-2 px-3 flex-column">
+    <div class="w-100 my-2">
+        <div class="w-100 text-center">
+            <p class="font-weight-bold text-primary cursor p-0">
+                <i class="fa fa-users mx-2"></i>
+                تعداد کارمندان سطح استان
+            </p>
+        </div>
+        <div class="btn-group w-100 rounded-bottom" role="group" aria-label="Basic example">
+            <button class="btn btn-outline-info">
+                <p class="p-0 m-0">فعال : <span class="font-weight-bold custom-font--7">@ViewData["countEmployees"]</span></p>
+            </button>
+            <button class="btn btn-outline-danger">
+                <p class="p-0 m-0">غیر فعال : <span class="font-weight-bold custom-font--7">@ViewData["countDeletedEmployess"]</span></p>
+            </button>
+        </div>
+    </div>
+    <div class="card w-100 cursor">
+        <div class="card-header text-primary">
+            <i class="fa fa-pie-chart mr-1"></i>
+            معاونت ها
+        </div>
+        <div class="card-body pt-0 h-100">
+            <canvas id="d1" class="mx-auto" style="width:500px;height:500px;"></canvas>
+        </div>
+    </div>
+    <div class="d-flex flex-row my-2">
+        <div class="card p-0 w-50 flex-item-right cursor">
+            <div class="card-header text-primary">
+                <i class="fa fa-pie-chart mr-1"></i>
+                جنسیت
+            </div>
+            <div class="card-body">
+                <canvas id="d2" class="mx-auto" style="width:300px;height:300px;"></canvas>
+            </div>
+        </div>
+        <div class="card p-0 w-50 flex-item-left">
+            <div class="card-header text-primary cursor">
+                <i class="fa fa-pie-chart mr-1"></i>
+                وضعیت استخدامی
+            </div>
+            <div class="card-body">
+                <canvas id="d3" class="chart-canvas mx-auto" style="width:300px;height:300px;"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="card w-100cursor">
+        <div class="card-header text-primary cursor">
+            <i class="fa fa-pie-chart mr-1"></i>
+            تحصیلات
+        </div>
+        <div class="card-body">
+            <canvas id="d4" class="chart-canvas mx-auto" style="width:1000px;height:400px;"></canvas>
+        </div>
+    </div>
+    <div class="card w-100 cursor my-2">
+        <div class="card-header text-primary">
+            <i class="fa fa-pie-chart mr-1"></i>
+            سابقه ثبت در سامانه
+        </div>
+        <div class="card-body pt-0 h-100 row">
+            @{
+                List<Employees> maxRegisterDateName = ViewData["maxRegisterDateName"] as List<Employees>;
+                List<Employees> minRegisterDateName = ViewData["minRegisterDateName"] as List<Employees>;
+            }
+
+            <div class="col-6 text-center">
+                <p class="mx-auto mt-5 mb-4 text-primary">
+                    <i class="fa fa-long-arrow-up mx-1"></i>
+                    بیشترین سابقه
+                </p>
+                <table class="table border table-striped table-bordered mx-auto table-custom--2">
+                    <thead>
+                        <tr>
+                            <th>نام کاربری</th>
+                            <th>نام و نام خانوادگی</th>
+                            <th>معاونت</th>
+                            <th>سابقه (روز)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{foreach (var item in maxRegisterDateName)
+                            {
+                                <tr>
+                                    <td>@item.nationalCode</td>
+                                    <td>@item.fName @item.lName</td>
+                                    <td>@item.role</td>
+                                    <td>@ViewData["maxRegisterDateDays"]</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <p class="mx-auto mb-4 mt-5 text-primary">
+                    <i class="fa fa-long-arrow-down mx-1"></i>
+                    کمترین سابقه
+                </p>
+                <table class="table border table-striped table-bordered mx-auto table-custom--2">
+                    <thead>
+                        <tr>
+                            <th>نام کاربری</th>
+                            <th>نام و نام خانوادگی</th>
+                            <th>معاونت</th>
+                            <th>سابقه (روز)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{foreach (var item in minRegisterDateName)
+                            {
+                                <tr>
+                                    <td>@item.nationalCode</td>
+                                    <td>@item.fName @item.lName</td>
+                                    <td>@item.role</td>
+                                    <td>@ViewData["minRegisterDateDays"]</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6">
+                <canvas id="d5" class="chart-canvas mx-auto" style="width:400px;height:400px;"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+@section ChartScripts{
+    <script>
+        $(function () {
+            ////////////////////////////////////
+            //نمودار نمایش تعداد کارمندان به تفکیک معاونت
+        var chartRoleTitle = [];
+        var chartRoleData = [];
+        @{
+            List<ChartValues> roleCount = ViewData["roleCount"] as List<ChartValues>;
+        }
+        @foreach(var item in roleCount)
+        {
+         @:chartRoleTitle.push("@item.chartTitle");
+         @:chartRoleData.push(@item.chartValue);
+        }
+            Chart.defaults.font.family = 'yekan';
+            new Chart("d1", {
+                type: "pie",
+                data: {
+                    labels: chartRoleTitle,
+                    datasets: [{
+                        backgroundColor: ["rgb(234,85,69)", "rgb(244,106,155)", "rgb(239,155,32)", "rgb(237,191,51)", "rgb(237,255,91)", "rgb(135,188,69)", "rgb(39,174,239)", "rgb(179,61,198)", "rgb(101,98,27)", "rgb(137,121,106)"],
+                        data: chartRoleData
+                    }]
+                }, options: {
+                    plugins: {
+                        legend: {
+                            position: 'left',
+                        }
+                    }
+                }
+            });
+            ////////////////////////////////////
+            //نمودار نمایش کارمندان به تفکیک جنسیت
+            var chartGenderData = [];
+            var chartGenderTitle = [];
+        @{List<ChartValues> genderCount = ViewData["genderCount"] as List<ChartValues>;}
+        @foreach(var item in genderCount)
+        {
+         @:chartGenderTitle.push("@item.chartTitle");
+         @:chartGenderData.push(@item.chartValue);
+        }
+
+            new Chart("d2", {
+                type: "doughnut",
+                data: {
+                    labels: chartGenderTitle,
+                    datasets: [{
+                        backgroundColor: ["rgb(0,119,201)", "rgb(217,24,131)"],
+                        data: chartGenderData
+                    }]
+                }, options: {
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        }
+                    }
+                }
+            });
+            ////////////////////////////////////
+            //نمودار نمایش کارمندان به تفکیک وضعیت استخدامی
+        var chartEmploymentStatusTitle = [];
+        var chartEmploymentStatusData = [];
+        @{List<ChartValues> employmentCount = ViewData["employmentCount"] as List<ChartValues>;}
+        @foreach(var item in employmentCount)
+        {
+         @:chartEmploymentStatusTitle.push("@item.chartTitle");
+         @:chartEmploymentStatusData.push(@item.chartValue);
+        }
+            new Chart("d3", {
+                type: "bar",
+                data: {
+                    labels: chartEmploymentStatusTitle,
+                    datasets: [{
+                        label: "تعداد",
+                        backgroundColor: ["rgb(0,119,201)", "rgb(217,24,131)", "rgb(132,189,0)", "rgb(238,223,0)"],
+                        data: chartEmploymentStatusData
+                    }]
+                }, options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            ////////////////////////////////////
+            //نمودار نمایش کارمندان به تفکیک تحصیلات
+         var chartEducationDegreesTitle = [];
+         var chartEducationDegreesData = [];
+        @{List<ChartValues> educationCount = ViewData["educationCount"] as List<ChartValues>;}
+        @foreach(var item in educationCount)
+        {
+         @:chartEducationDegreesTitle.push("@item.chartTitle");
+         @:chartEducationDegreesData.push(@item.chartValue);
+        }
+            new Chart("d4", {
+                type: "bar",
+                data: {
+                    labels: chartEducationDegreesTitle,
+                    datasets: [{
+                        label: "تعداد",
+                        backgroundColor: ["rgb(229,0,43)", "rgb(253,80,1)", "rgb(252,222,2)", "rgb(217,24,131)", "rgb(166,24,144)","rgb(0,120,203)","rgb(1,142,170)"],
+                        data: chartEducationDegreesData
+                    }]
+                }, options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+           ////////////////////////////////////
+          //نمودار نمایش بیش ترین و کمترین سابقه
+            new Chart("d5", {
+                type: "bar",
+                data: {
+                    labels: ["بیش ترین", "کم ترین"],
+                    datasets: [{
+                        label: "سابقه (ساعت)",
+                        backgroundColor: ["rgb(0,119,201)"],
+                        data: ["@ViewData["maxRegisterDateHours"]", "@ViewData["minRegisterDateHours"]"],
+                        barThickness: 45,
+                    }]
+                }, options: {
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: {
+                            display: false,
+                            position: 'right'
+                        },
+                        title: {
+                            display: true,
+                            text: "سابقه (ساعت)"
+                        },
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+           ////////////////////////////////////
+    });
+    </script>
+}

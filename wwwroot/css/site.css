@@ -1,0 +1,339 @@
+﻿@font-face {
+    font-family: 'koodak';
+    src: url('../fonts/KoodakBold.eot')format('eot'), url('../fonts/KoodakBold.ttf')format('truetype'), url('../fonts/KoodakBold.woff')format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'nazanin';
+    src: url('../fonts/Nazanin.eot')format('eot'), url('../fonts/Nazanin.ttf')format('truetype'), url('../fonts/Nazanin.woff')format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'yekan';
+    src: url('../fonts/Yekan.eot')format('eot'), url('../fonts/Yekan.ttf')format('truetype'), url('../fonts/Yekan.woff')format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: yekan;
+}
+
+.custom-fontFamily--1 {
+    font-family: 'Times New Roman';
+}
+
+header {
+    color: #005DA5;
+    box-sizing: border-box;
+}
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+.time-partial {
+    font-size: 0.9rem;
+    box-sizing: border-box;
+}
+
+#sidebar {
+    min-width: 130px;
+}
+
+.nav-link[data-toggle].collapsed:after {
+    content: "▾";
+}
+
+.nav-link[data-toggle]:not(.collapsed):after {
+    content: "▴";
+}
+
+.navbar a:hover {
+    background: rgb(0,123,255);
+    color: #fff;
+    border-radius: unset;
+}
+
+.collapse ul li a {
+    font-size: 0.9rem !important;
+    padding: 1rem 0;
+    height: 2rem;
+}
+
+th, td {
+    text-align: center !important;
+    cursor: default;
+}
+
+.footer {
+    font-size: 0.8rem;
+}
+
+.rounded-top-selectLevel {
+    border-radius: 0.3rem 0.3rem 0 0 !important;
+}
+
+.rounded-bottom-selectLevel {
+    border-radius: 0 0 0.3rem 0.3rem !important;
+}
+
+.login-logo {
+    width: 7rem;
+    height: 7rem;
+    background: #ccc;
+    outline: 2px solid #ccc;
+}
+
+.box-form:hover .login-h4 {
+    color: #fff !important;
+}
+
+.box-form:hover .login-logo {
+    outline: 2px solid #fff;
+}
+
+.cursor {
+    cursor: default;
+}
+
+.a-management:hover a {
+    color: #fff;
+}
+
+input::placeholder {
+    font-size: 0.7rem;
+}
+
+.login-h4 {
+    cursor: default;
+}
+
+.login-h4-span {
+    font-size: 0.8rem;
+}
+
+.button-back {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-weight: bolder !important;
+    font-size: 2rem;
+    bottom: 5rem;
+    opacity: 0.8;
+}
+
+    .button-back:hover {
+        opacity: 1;
+    }
+
+.footer-login:hover, .footer-login:hover a {
+    color: #ffffff !important;
+}
+
+.footer-login:hover {
+    cursor: default;
+    opacity: 1 !important;
+}
+
+.login-background {
+    background-image: url("/images/background.png") !important;
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
+}
+
+.header {
+    bottom: 0;
+    opacity: 0.4;
+}
+
+.header-font {
+    font-size: 0.7rem;
+}
+
+.table-custom--1 td, .table-custom--5 td {
+    font-size: 0.95rem;
+}
+
+.table-custom--2, .table-custom--6 {
+    width: 98% !important;
+}
+
+    .table-custom--2 th {
+        font-size: 0.66rem;
+    }
+
+    .table-custom--2 td {
+        font-size: 0.6rem;
+    }
+
+.table-custom--3 td {
+    text-align: right !important;
+    font-size: 0.9rem;
+}
+
+.table-custom--4 th {
+    font-size: 0.7rem;
+}
+
+.table-custom--4 td {
+    font-size: 0.7rem;
+}
+
+form label {
+    font-size: 0.85rem;
+}
+
+.table-custom--4 {
+    width: 97%;
+}
+
+.table-custom--5 {
+    width: 85% !important;
+}
+
+.table-custom--6 th {
+    font-size: 0.85rem;
+}
+
+.table-custom--6 td {
+    font-size: 0.8rem;
+}
+
+.table-custom--7 td, .table-custom--7 th {
+    font-size: 0.66rem !important;
+}
+
+.table-custom--7 {
+    width: 97% !important;
+}
+
+
+form span {
+    font-size: 0.7rem;
+}
+
+.font-alertLogin {
+    font-size: 0.9rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.alert-heading {
+    font-size: 1.1rem !important;
+}
+
+.alert table td, .alert table th {
+    font-size: 0.8rem;
+}
+
+.alert table td {
+    font-weight: 400;
+}
+
+#role, #filter {
+    font-size: 11px !important;
+    height: 2.5rem;
+}
+
+.btn-displaydelete:hover a, .btn-displaydelete a:hover {
+    color: #fff !important;
+}
+
+.p-archive {
+    font-size: 0.9rem !important;
+}
+
+    .p-archive:hover {
+        color: #000 !important;
+    }
+
+label {
+    font-size: 0.8rem !important;
+    font-weight: bold;
+}
+
+.custom-font {
+    font-size: 1rem;
+}
+
+.custom-font--2 {
+    font-size: 0.8rem;
+}
+
+.custom-font--3 {
+    font-size: 0.75rem !important;
+}
+
+.custom-font--4 {
+    font-size: 0.81rem !important;
+}
+
+.custom-font--5 {
+    font-size: 0.67rem !important;
+}
+
+.custom-font--6 {
+    font-size: 0.87rem !important;
+}
+
+.custom-font--7{
+    font-size:1.3rem !important;
+}
+
+.font-custom--8{
+    font-size:2rem !important;
+}
+table td {
+    box-sizing: border-box
+}
+
+.btn--edit-profile a {
+    font-size: 1rem !important;
+}
+
+.nav-background {
+    background-color: rgb(242,242,242);
+}
+
+.nav-submenu-background {
+    background-color: #e1dfdf;
+}
+
+input#document {
+    font-size: 0.9rem;
+}
+
+.a-forgetPassword {
+    font-size: 0.7rem;
+}
+
+.tooltip-inner {
+    background-color: darkslategray;
+    font-size: 0.8rem;
+}
+
+.bg-silver {
+    background: #ccc;
+}
+
+.flex-item-right{
+    margin-left:5px !important;
+}
+
+.flex-item-left {
+    margin-right: 5px !important;
+}
+
+.nav-extra-submenu-background{
+    background:#ccc;
+}

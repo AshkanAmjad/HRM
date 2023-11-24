@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "انتخاب روش بازیابی رمز عبور - سطح استان";
+    Layout = "~/Views/Shared/_LayoutLoginPage.cshtml";
+}
+<div class="row d-flex justify-content-center my-md-5 mx-0">
+    <div class="col-md-3 border bg-light p-0 rounded-lg box-form">
+        <div class="border-bottom bg-info col-md-12 py-md-2 rounded-top">
+            <div class="rounded-circle mx-auto login-logo d-flex align-items-center justify-content-center">
+                <img src="~/icons/login-logo.png" />
+            </div>
+            <h4 class="text-white-50 mt-md-3 cursor text-center">
+                سامانه مدیریت منابع انسانی<br />
+                <span class="login-h4-span">سطح دسترسی استان</span>
+            </h4>
+        </div>
+        <div class="col-12">
+            <p class="mt-1 cursor">تغییر رمز عبور</p>
+            <p class="font-weight-light custom-font--3 text-secondary cursor mb-n2">شیوه ارسال پیام تایید هویت را انتخاب کنید</p>
+            <div class="mt-3 mb-4 d-flex flex-column">
+                <a class="btn btn-lg btn-outline-primary mx-1 rounded-0 border-bottom-0 rounded-top-selectLevel custom-font--4" href="/VerificationCodeProvince/@ViewBag.nationalCode">ارسال از طریق شماره تلفن همراه</a>
+                <a class="btn btn-lg btn-outline-primary mx-1 rounded-0 custom-font--4" href="/SendVerificationCodeByEmailProvince/@ViewBag.nationalCode">ارسال از طریق ایمیل </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row m-0 p-0">
+    <div class="col-12 d-flex justify-content-end ">
+        <div class="button-back d-flex align-items-center justify-content-center rounded-lg mx-md-1 position-fixed bg-primary">
+            <a href="/ForgotPasswordProvince" class="text-decoration-none text-light">&larr;</a>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

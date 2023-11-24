@@ -1,0 +1,45 @@
+﻿@model TransferDocumentsBetweenLevels
+@using ERP.Convertors
+@{
+    ViewData["Title"] = "نمایش توضیحات فرا سطح - سطح استان";
+}
+<div class="btn btn-outline-primary btn-sm  my-1 mx-3 d-print-none">نمایش توضیحات فرا سطح استان</div>
+
+<table class="table border table-bordered mt-2 mx-auto table-custom--6">
+    <thead>
+        <tr>
+            <th scope="col">سطح<br />بارگذاری کننده</th>
+            <th scope="col">نام کاربری<br />بارگذاری کننده</th>
+            <th scope="col">سطح<br />دریافت کننده</th>
+            <th scope="col">نام کاربری<br />دریافت کننده</th>
+            <th scope="col">عنوان</th>
+            <th scope="col" class="w-25">تاریخ بارگذاری</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.userUploaderArea</td>
+            <td>@Model.userUploaderId</td>
+            <td>@Model.userReceiverArea</td>
+            <td>@Model.userReceiverId</td>
+            <td>@Model.title</td>
+            <td>@Model.uploadDate.ToShamsiMyDocuments()</td>
+        </tr>
+        <tr>
+            <td colspan="6" class="text-left">
+                @if (Model.description == "بدون توضیح")
+                {
+                    <p>@Html.Raw(Model.description)</p>
+                }
+                else
+                {
+                    @Html.Raw(Model.description)
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="w-100 d-flex justify-content-center d-print-none">
+    <a class="btn btn-primary text-decoration-none text-light rounded-circle mx-1 cursor-pointer" onclick="print()"><i class="fa fa-print"></i></a>
+    <a class="btn btn-primary text-decoration-none text-light rounded-circle " asp-controller="ExchangeDocuments" asp-action="DisplayExcahangeSuperLevel">&larr;</a>
+</div>

@@ -1,0 +1,90 @@
+﻿@model ERP.Models.ProfileInformationViewModel
+
+@{
+    ViewData["Title"] = "حساب کاربری - سطح شهرستان";
+}
+<div class="btn btn-outline-primary btn-sm  my-1 mx-3">حساب کاربری</div>
+
+@if (ViewBag.EditProfile == true)
+{
+    <div class="alert alert-success w-25 text-center mx-auto mb-md-3 mt-md-n4" id="alertEditProfile">
+        <p class="help-block my-0">ویرایش با موفقیت انجام شد.</p>
+    </div>
+    <script>
+            var delay = 5000;
+            setTimeout(function () { document.getElementById("alertEditProfile").classList.add("hidden") }, delay);
+    </script>
+}
+<table class="table table-bordered w-50 mx-auto   shadow-sm">
+    <thead>
+        <tr>
+            <th class="bg-white w-100 border-0 text-center" colspan="2">
+                <img src="/UserAvatar/CountyArea/@(User.Claims.FirstOrDefault(c=>c.Type == "nationalCode").Value).png"
+                     class="thumbnail border rounded-circle mx-auto" id="homeImgAvatar" />
+            </th>
+        </tr>
+    </thead>
+    <tbody class="table-custom--3">
+        <tr>
+            <td class="w-50 pb-0">
+                <p class="text-muted custom-font--2">نام کاربری</p>
+                <p>@Model.nationalCode</p>
+            </td>
+            <td class="w-50 pb-0">
+                <p class="text-muted custom-font--2">رمز عبور</p>
+                <p>@Model.userPass</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="w-50 pb-0">
+                <p class="text-muted custom-font--2">نام و نام خانوادگی</p>
+                <p>@Model.fName @Model.lName</p>
+            </td>
+            <td class="w-50 pb-0">
+                <p class="text-muted custom-font--2">شعبه</p>
+                <p>@Model.department</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="w-50 pb-0">
+                <p class="text-muted custom-font--2">معاونت</p>
+                <p>@Model.role</p>
+            </td>
+            <td class="w-50 pb-0">
+                <p class="text-muted custom-font--2">وضعیت استخدام</p>
+                <p>@Model.employmentStatus</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="w-50 pb-0">
+                <p class="text-muted custom-font--2">تحصیلات</p>
+                <p>@Model.education</p>
+            </td>
+            <td class="w-50 pb-0">
+                <p class="text-muted custom-font--2">شماره تماس</p>
+                <p>@Model.tel</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="w-50 pb-0">
+                <p class="text-muted custom-font--2">وضعیت تاهل</p>
+                <p>@Model.maritalStatus</p>
+            </td>
+            <td class="w-50 pb-0">
+                <p class="text-muted custom-font--2">نشانی محل سکونت</p>
+                <p>@Model.address</p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="p-0">
+                <a href="/CountyArea/Management/EditProfile/@Model.nationalCode"
+                   class="btn--edit-profile w-100 btn btn-primary btn-sm rounded-0 text-light d-flex align-items-center justify-content-center" dir="ltr">
+                    <i class="fa fa-edit fa-2x my-1 text-muted text-decoration-none ml-1"></i>ویرایش اطلاعات
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+

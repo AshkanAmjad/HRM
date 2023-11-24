@@ -1,0 +1,137 @@
+﻿@model IEnumerable<CountyLevel>
+@using ERP.Convertors
+@{
+    ViewData["Title"] = "مدیریت کارکنان شهرستان - سطح شهرستان";
+}
+<div class="btn btn-outline-primary btn-sm  my-1 mx-3">نمایش کارکنان سطح شهرستان</div>
+@if (ViewBag.EditProfile == true)
+{
+    <div class="alert alert-success w-25 text-center mx-auto mb-md-3 mt-md-n4 cursor" id="alertEdit">
+        <p class="help-block my-0">ویرایش با موفقیت انجام شد.</p>
+    </div>
+    <script>
+        var delay = 5000;
+        setTimeout(function () { document.getElementById("alertEdit").classList.add("hidden") }, delay);
+    </script>
+}
+@if (ViewBag.DeleteUser == true)
+{
+    <div class="alert alert-success w-25 text-center mx-auto mb-md-3 mt-md-n4 cursor" id="alertDelete">
+        <p class="help-block my-0">حذف با موفقیت انجام شد.</p>
+    </div>
+    <script>
+        var delay = 5000;
+        setTimeout(function () { document.getElementById("alertDelete").classList.add("hidden") }, delay);
+    </script>
+}
+@if (ViewBag.ErrorDeleteUser == true)
+{
+    <div class="alert alert-danger w-25 text-center mx-auto mb-md-3 mt-md-n4 cursor" id="alertErrorDelete">
+        <p class="help-block my-0">حذف این کاربر ممکن نیست.</p>
+    </div>
+    <script>
+        var delay = 5000;
+        setTimeout(function () { document.getElementById("alertErrorDelete").classList.add("hidden") }, delay);
+    </script>
+}
+@if (ViewBag.ErrorEditProfile == true)
+{
+    <div class="alert alert-danger w-25 text-center mx-auto mb-md-3 mt-md-n4 cursor" id="alertErrorEdit">
+        <p class="help-block my-0">ویرایش این کاربر ممکن نیست.</p>
+    </div>
+    <script>
+        var delay = 5000;
+        setTimeout(function () { document.getElementById("alertErrorEdit").classList.add("hidden") }, delay);
+    </script>
+}
+@if (ViewBag.ErrorIsExistArchive == true)
+{
+    <div class="alert alert-danger w-25 text-center mx-auto mb-md-3 mt-md-n4 cursor" id="alertErrorIsExistArchive">
+        <p class="help-block my-0">این کاربر قبلا حذف شده است.</p>
+    </div>
+    <script>
+        var delay = 5000;
+        setTimeout(function () { document.getElementById("alertErrorIsExistArchive").classList.add("hidden") }, delay);
+    </script>
+}
+<div class="row mx-0 mt-1 p-0">
+    <div class=" col-md-5 p-0 ml-3">
+        <input type="text" id="search" class="form-control w-100 " placeholder="مقداری را وارد کنید ..." autocomplete="off" />
+    </div>
+    <div class=" col-md-3 d-flex justify-content-center">
+        <select class="form-control w-100" id="filter">
+            <option selected>فیلتر جست و جو را انتخاب کنید</option>
+            <option value="0">نام کاربری</option>
+            <option value="2">نام</option>
+            <option value="3">نام خانوادگی</option>
+            <option value="4">نقش</option>
+            <option value="5">تحصیلات</option>
+            <option value="6">تاریخ تولد</option>
+            <option value="7">جنسیت</option>
+            <option value="8">وضعیت استخدامی</option>
+            <option value="9">سابقه بر مبنای روز</option>
+            <option value="11">وضعیت تاهل</option>
+            <option value="12">آدرس سکونت</option>
+            <option value="14">شعبه</option>
+        </select>
+    </div>
+    <div class=" col-md-2 pl-0">
+        <button class="btn btn-info" onclick="search()" id="search-btn">
+            <i class="fa fa-search mx-2"></i>
+        </button>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+<table id="myTable" class="table border table-striped table-bordered mt-2 mx-auto table-custom--2">
+    <thead>
+        <tr>
+            <th scope="col" class="py-4">نام کاربری</th>
+            <th scope="col" class="py-4">رمز عبور</th>
+            <th scope="col" class="py-4">نام</th>
+            <th scope="col" class="py-4">نام خانوادگی</th>
+            <th scope="col" class="py-4">نقش</th>
+            <th scope="col" class="py-4">تحصیلات</th>
+            <th scope="col" class="py-4">تاریخ تولد</th>
+            <th scope="col" class="py-4">جنسیت</th>
+            <th scope="col" class="py-4">وضعیت استخدامی</th>
+            <th scope="col" class="py-4">سابقه<br />(روز)</th>
+            <th scope="col" class="py-4">شماره تماس</th>
+            <th scope="col" class="py-4">وضعیت تاهل</th>
+            <th scope="col" class="py-4">آدرس سکونت</th>
+            <th class="hidden"></th>
+            <th scope="col" class="py-4">شعبه</th>
+            <th scope="col" class="py-4">تاریخ ثبت</th>
+            <th scope="col" class="py-4">حذف</th>
+            <th scope="col" class="py-4">ویرایش</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.nationalCode</td>
+                <td>@item.userPass</td>
+                <td>@item.fName</td>
+                <td>@item.lName</td>
+                <td>@item.role</td>
+                <td>@item.education</td>
+                <td>@item.dateOfBirth</td>
+                <td>@item.gender</td>
+                <td>@item.employmentStatus</td>
+                <td>@item.RegisterDate.DailyWorkHistory()</td>
+                <td>@item.tel</td>
+                <td>@item.maritalStatus</td>
+                <td>@item.address</td>
+                <td class="hidden"></td>
+                <td>@item.department</td>
+                <td>@item.RegisterDate.ToShamsi()</td>
+                <td class="py-4"><a href="/CountyArea/Management/ListDeleteUsersCounty/@item.nationalCode"><i class="fa fa-times fa-2x text-danger text-decoration-none"></i></a></td>
+                <td class="py-4"><a href="/CountyArea/Management/EditUserCounty/@item.nationalCode"><i class="fa fa-edit text-info fa-2x  text-decoration-none"></i></a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="alert alert-danger w-25 text-center mx-auto mb-md-3 mt-md-5 hidden cursor" id="notFound">
+    <p class="help-block my-0">کاربری یافت نشد.</p>
+</div>
+

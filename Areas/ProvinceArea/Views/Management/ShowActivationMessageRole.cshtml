@@ -1,0 +1,17 @@
+﻿@model Role
+@{
+    ViewData["Title"] = "فعال کردن نقش - سطح استان";
+}
+
+<div class="btn btn-outline-primary btn-sm  my-1 mx-3">فعال کردن نقش در سطح استان</div>
+<div class="border border-warning w-50 mx-auto rounded my-2 p-2 cursor font-alertLogin shadow">
+    <h6>آیا از فعال کردن نقش  <span class="text-primary">@Model.RoleTitle</span> مطمئن هستید؟</h6>
+    <p>
+        <i class="fa fa-exclamation-circle fa-lg text-warning mr-1 my-1"></i>
+        توجه شود که در صورت تایید این پیام، نقش در سامانه مجدد فعال می شود.
+    </p>
+    <div class="d-flex justify-content-end">
+        <a class="btn btn-success btn-sm mx-1" href="/ProvinceArea/Management/ActivationDeletedRole/@Model.RoleId">تایید</a>
+        <a class="btn btn-primary btn-sm" asp-controller="management" asp-action="DisplayRolesdb">&larr;</a>
+    </div>
+</div>

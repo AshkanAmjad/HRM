@@ -1,0 +1,85 @@
+﻿@model IEnumerable<TransferDocumentsBetweenLevels>
+@using ERP.Convertors
+@{
+    ViewData["Title"] = "نمایش تبادلات درون سطح - سطح شهرستان";
+}
+<div class="btn btn-outline-primary btn-sm  my-1 mx-3">نمایش تبادلات درون سطح شهرستان</div>
+<div class="row mx-0 mt-1 p-0">
+    <div class=" col-md-5 p-0 ml-3">
+        <input type="text" id="searchDocuments" class="form-control w-100 " placeholder="مقداری را وارد کنید ..." autocomplete="off" />
+    </div>
+    <div class=" col-md-4 d-flex justify-content-center">
+        <select class="form-control w-100" id="filter">
+            <option selected>فیلتر جست و جو را انتخاب کنید</option>
+            <option value="1">سطح بارگذاری کننده</option>
+            <option value="2">نام کاربری بارگذاری گننده</option>
+            <option value="3">معاونت بارگذاری کننده</option>
+            <option value="4">سطح دریافت کننده</option>
+            <option value="5">نام کاربری دریافت کننده </option>
+            <option value="6">معاونت در یافت کننده</option>
+            <option value="13">عنوان</option>
+            <option value="16">تاریخ بارگذاری - روز(DD)/ماه(MM)/سال(YYYY)</option>
+        </select>
+    </div>
+    <div class=" col-md-2 pl-0">
+        <button class="btn btn-info" onclick="SearchExchangeDocuments()" id="search-btn">
+            <i class="fa fa-search mx-2"></i>
+        </button>
+    </div>
+</div>
+<table id="myTable" class="table border table-striped table-bordered mt-2 mx-auto table-custom--4">
+    <thead>
+        <tr>
+            <th scope="col" class="hidden">شناسه</th>
+            <th scope="col">سطح<br />بارگذاری کننده</th>
+            <th scope="col">نام کاربری<br />بارگذاری کننده</th>
+            <th scope="col">معاونت <br />بارگذاری کننده</th>
+            <th scope="col">سطح<br />دریافت کننده</th>
+            <th scope="col">نام کاربری<br />دریافت کننده</th>
+            <th scope="col">معاونت <br />دریافت کننده</th>
+            <th scope="col">استان<br />مبدا</th>
+            <th scope="col">شهرستان<br />مبدا</th>
+            <th scope="col">بخش<br />مبدا</th>
+            <th scope="col">استان<br />مقصد</th>
+            <th scope="col">شهرستان<br />مقصد</th>
+            <th scope="col">بخش<br />مقصد</th>
+            <th scope="col">عنوان</th>
+            <th scope="col">نوع فایل</th>
+            <th scope="col" ">توضیحات</th>
+            <th scope="col" class="w-25">تاریخ بارگذاری</th>
+            <th scope="col">دریافت</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="hidden">@item.id</td>
+                <td>@item.userUploaderArea</td>
+                <td>@item.userUploaderId</td>
+                <td>@item.roleUploader</td>
+                <td>@item.userReceiverArea</td>
+                <td>@item.userReceiverId</td>
+                <td>@item.roleReceiver</td>
+                <td>@item.ProvinceOrigin</td>
+                <td>@item.CountyOrigin</td>
+                <td>@item.DistrictOrigin</td>
+                <td>@item.ProvinceDestination</td>
+                <td>@item.CountyDestination</td>
+                <td>@item.DistrictDestination</td>
+                <td>@item.title</td>
+                <td dir="ltr">@item.fileFormat</td>
+                <td>
+                    <a href="/CountyArea/ExchangeDocuments/ShowDescriptionWithinLevel/@item.id" class="text-primary cursor-pointer">
+                        <i class="fa fa-external-link fa-2x my-2"></i>
+                    </a>
+                </td>
+                <td>@item.uploadDate.ToShamsi()</td>
+                <td><a href="/CountyArea/ExchangeDocuments/DownloadDocumentFromDB/@item.id"><i class="fa fa-download fa-2x text-decoration-none my-2"></i></a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="alert alert-danger w-25 text-center mx-auto mb-md-3 mt-md-5 hidden cursor" id="notFound">
+    <p class="help-block my-0">موردی یافت نشد.</p>
+</div>

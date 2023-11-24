@@ -1,0 +1,412 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="icon" href="~/icons/management .png" />
+    <link rel="stylesheet" href="~/lib/bootstrap-rtl/css/bootstrap-rtl.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/icons/fontawesome/css/font-awesome.min.css" />
+</head>
+<body class="rtl">
+    <header class="row m-0 p-0 bg-light">
+        <div class="col-md-10">
+            <div class="btn btn-outline-primary btn-sm position-absolute my-3">سطح دسترسی استان</div>
+            <div class="d-flex align-items-center justify-content-center my-2">
+                <img src="~/icons/management .png" />
+                <a asp-controller="home" asp-action="index" class="text-decoration-none"><h1>سامانه مدیریت منابع انسانی</h1></a>
+            </div>
+        </div>
+        <div class="col-md-2 text-center time-partial mt-md-2 border-right cursor" style="height:50px">
+            <partial name="_datePartial" />
+        </div>
+    </header>
+    <hr class="m-0" />
+    <div class="row m-0 p-0">
+        <div class="col-md-2 bg-white h-100 text-center d-print-none">
+            <nav class="navbar text-left my-md-3 mx-md-3 p-0 custom-font--4 font-weight-bold">
+                <ul class="nav nav-pills flex-column mx-auto w-100">
+                    <li class="nav-item border-bottom border-top">
+                        <a class="nav-link " asp-controller="home" asp-action="Index">
+                            <i class="fa fa-home fa-lg mr-2"></i>
+                            خانه
+                        </a>
+                    </li>
+                    @if (User.Claims.SingleOrDefault(u => u.Type == "role").Value == "مدیریت" || User.Claims.SingleOrDefault(u => u.Type == "role").Value == "معاونت فناوری اطلاعات")
+                    {
+                        <li class="nav-item border-bottom">
+                            <a class="nav-link collapsed" href="#submenu1" data-toggle="collapse" data-target="#submenu1">
+                                <i class="fa fa-user-plus fa-lg mr-2"></i>
+                                افزودن پرسنل
+                            </a>
+                            <div class="collapse nav-background" id="submenu1" aria-expanded="false">
+                                <ul class="flex-column nav font-weight-light">
+                                    <li class="nav-item">
+                                        <a class="nav-link p-1  border-bottom border-top" asp-controller="Management" asp-action="RegisterationProvince">
+                                            <i class="fa fa-navicon mx-3 my-1"></i>
+                                            سطح استان
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link p-1 border-bottom" asp-controller="Management" asp-action="RegisterationCounty">
+                                            <i class="fa fa-navicon mx-3 my-1"></i>
+                                            سطح شهرستان
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link p-1 border-bottom" asp-controller="Management" asp-action="RegisterationDistrict">
+                                            <i class="fa fa-navicon mx-3 my-1"></i>
+                                            سطح بخش
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item border-bottom">
+                            <a class="nav-link collapsed" href="#submenu2" data-toggle="collapse" data-target="#submenu2">
+                                <i class="fa fa-users fa-lg mr-2"></i>
+                                مدیریت
+                            </a>
+                            <div class="collapse nav-background" id="submenu2" aria-expanded="false">
+                                <ul class="flex-column nav font-weight-light">
+                                    <li class="nav-item">
+                                        <a class="nav-link p-1  border-bottom border-top collapsed" href="#submenu6" data-toggle="collapse" data-target="#submenu6">
+                                            <i class="fa fa-navicon mx-3"></i>
+                                            سطح استان
+                                        </a>
+                                        <div class="collapse nav-submenu-background" id="submenu6" aria-expanded="false">
+                                            <ul class="flex-column nav font-weight-light">
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom border-top" asp-controller="Management" asp-action="DisplayProvincedb">
+                                                        <i class="fa fa-minus-square mx-3"></i>
+                                                        کارکنان
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom border-top" asp-controller="Management" asp-action="DisplayDocumentsProvincedb">
+                                                        <i class="fa fa-minus-square mx-3"></i>
+                                                        مدارک
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link p-1 border-bottom collapsed" href="#submenu7" data-toggle="collapse" data-target="#submenu7">
+                                            <i class="fa fa-navicon mx-3 my-1"></i>
+                                            سطح شهرستان
+                                        </a>
+                                        <div class="collapse nav-submenu-background" id="submenu7" aria-expanded="false">
+                                            <ul class="flex-column nav font-weight-light">
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom border-top" asp-controller="Management" asp-action="DisplayCountydb">
+                                                        <i class="fa fa-minus-square mx-3"></i>
+                                                        کارکنان
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom border-top" asp-controller="Management" asp-action="DisplayDocumentsCountydb">
+                                                        <i class="fa fa-minus-square mx-3"></i>
+                                                        مدارک
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link p-1 border-bottom collapsed" href="#submenu8" data-toggle="collapse" data-target="#submenu8">
+                                            <i class="fa fa-navicon mx-3 my-1"></i>
+                                            سطح بخش
+                                        </a>
+                                        <div class="collapse nav-submenu-background collapsed" id="submenu8" aria-expanded="false">
+                                            <ul class="flex-column nav font-weight-light">
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom border-top" asp-controller="Management" asp-action="DisplayDistrictdb">
+                                                        <i class="fa fa-minus-square mx-3"></i>
+                                                        کارکنان
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom border-top" asp-controller="Management" asp-action="DisplayDocumentsDistrictdb">
+                                                        <i class="fa fa-minus-square mx-3"></i>
+                                                        مدارک
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link p-1 border-bottom collapsed" href="#submenu9" data-toggle="collapse" data-target="#submenu9">
+                                            <i class="fa fa-navicon mx-3 my-1"></i>
+                                            لیست کارکنان
+                                        </a>
+                                        <div class="collapse nav-submenu-background collapsed" id="submenu9" aria-expanded="false">
+                                            <ul class="flex-column nav font-weight-light">
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom border-top" asp-controller="Management" asp-action="DisplayEmployeesdb">
+                                                        <i class="fa fa-minus-square mx-3"></i>
+                                                        کارکنان
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item border-bottom">
+                            <a class="nav-link collapsed" href="#submenu3" data-toggle="collapse" data-target="#submenu3">
+                                <i class="fa fa-exchange fa-lg mr-2"></i>
+                                تبادل مدارک
+                            </a>
+                            <div class="collapse nav-background" id="submenu3" aria-expanded="false">
+                                <ul class="flex-column nav font-weight-light">
+                                    <li class="nav-item">
+                                        <a class="nav-link p-1  border-bottom border-top" asp-controller="ExchangeDocuments" asp-action="DisplayTransferDocumentsForms">
+                                            <i class="fa fa-long-arrow-right mx-3 my-1"></i>
+                                            ارسال به سطوح
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link p-1 border-bottom collapsed" href="#submenu13" data-toggle="collapse" data-target="#submenu13">
+                                            <i class="fa fa-exchange mx-3 my-1"></i>
+                                            تبادل ها
+                                        </a>
+                                        <div class="collapse nav-submenu-background" id="submenu13" aria-expanded="false">
+                                            <ul class="flex-column nav font-weight-light">
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom border-top" asp-controller="ExchangeDocuments" asp-action="DisplayExcahangeWithinLevel">
+                                                        <i class="fa fa-navicon mx-3"></i>
+                                                        درون سطح
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom border-top" asp-controller="ExchangeDocuments" asp-action="DisplayExcahangeSuperLevel">
+                                                        <i class="fa fa-navicon mx-3"></i>
+                                                        فرا سطح
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom" asp-controller="ExchangeDocuments" asp-action="DisplayMyExcahange">
+                                                        <i class="fa fa-inbox mx-3 my-1"></i>
+                                                        تبادلات من
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item border-bottom">
+                            <a class="nav-link collapsed" href="#submenu4" data-toggle="collapse" data-target="#submenu4">
+                                <i class="fa fa-archive fa-lg mr-2"></i>
+                                بایگانی
+                            </a>
+                            <div class="collapse nav-background" id="submenu4" aria-expanded="false">
+                                <ul class="flex-column nav font-weight-light">
+                                    <li class="nav-item">
+                                        <a class="nav-link py-1  border-bottom border-top collapsed" href="#submenu10" data-toggle="collapse" data-target="#submenu10">
+                                            <i class="fa fa-navicon mx-3 my-1"></i>
+                                            سطح استان
+                                        </a>
+                                        <div class="collapse nav-submenu-background" id="submenu10" aria-expanded="false">
+                                            <ul class="flex-column nav font-weight-light">
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom border-top" asp-controller="Management" asp-action="ArchiveProvince">
+                                                        <i class="fa fa-minus-square mx-3"></i>
+                                                        کارکنان
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom border-top" asp-controller="Management" asp-action="ArchiveDocumentsProvince">
+                                                        <i class="fa fa-minus-square mx-3"></i>
+                                                        مدارک
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom border-top" asp-controller="Management" asp-action="ArchiveExchangeDocumentsProvince">
+                                                        <i class="fa fa-minus-square mx-3"></i>
+                                                        تبادلات
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link py-1 border-bottom collapsed" href="#submenu11" data-toggle="collapse" data-target="#submenu11">
+                                            <i class="fa fa-navicon mx-3 my-1"></i>
+                                            سطح شهرستان
+                                        </a>
+                                        <div class="collapse nav-submenu-background" id="submenu11" aria-expanded="false">
+                                            <ul class="flex-column nav font-weight-light">
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom border-top" asp-controller="Management" asp-action="ArchiveCounty">
+                                                        <i class="fa fa-minus-square mx-3"></i>
+                                                        کارکنان
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom border-top" asp-controller="Management" asp-action="ArchiveDocumentsCounty">
+                                                        <i class="fa fa-minus-square mx-3"></i>
+                                                        مدارک
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom border-top" asp-controller="Management" asp-action="ArchiveExchangeDocumentsCounty">
+                                                        <i class="fa fa-minus-square mx-3"></i>
+                                                        تبادلات
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link py-1 border-bottom collapsed" href="#submenu12" data-toggle="collapse" data-target="#submenu12">
+                                            <i class="fa fa-navicon mx-3 my-1"></i>
+                                            سطح بخش
+                                        </a>
+                                        <div class="collapse nav-submenu-background" id="submenu12" aria-expanded="false">
+                                            <ul class="flex-column nav font-weight-light">
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom border-top" asp-controller="Management" asp-action="ArchiveDistrict">
+                                                        <i class="fa fa-minus-square mx-3"></i>
+                                                        کارکنان
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom border-top" asp-controller="Management" asp-action="ArchiveDocumentsDistrict">
+                                                        <i class="fa fa-minus-square mx-3"></i>
+                                                        مدارک
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link p-1 border-bottom border-top" asp-controller="Management" asp-action="ArchiveExchangeDocumentsDistrict">
+                                                        <i class="fa fa-minus-square mx-3"></i>
+                                                        تبادلات
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item border-bottom">
+                            <a class="nav-link collapsed" href="#submenu14" data-toggle="collapse" data-target="#submenu14">
+                                <i class="fa fa-pie-chart fa-lg mr-2"></i>
+                                گزارش
+                            </a>
+                            <div class="collapse nav-background" id="submenu14" aria-expanded="false">
+                                <ul class="flex-column nav font-weight-light">
+                                    <li class="nav-item">
+                                        <a class="nav-link p-1  border-bottom border-top" asp-controller="Chart" asp-action="DisplayChartsProvince">
+                                            <i class="fa fa-navicon mx-3 my-1"></i>
+                                            سطح استان
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link p-1  border-bottom border-top" asp-controller="Chart" asp-action="DisplayChartsCounty">
+                                            <i class="fa fa-navicon mx-3 my-1"></i>
+                                            سطح شهرستان
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link p-1  border-bottom border-top" asp-controller="Chart" asp-action="DisplayChartsDistrict">
+                                            <i class="fa fa-navicon mx-3 my-1"></i>
+                                            سطح بخش
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link p-1  border-bottom " asp-controller="Management" asp-action="DisplayRolesdb">
+                                <i class="fa fa-unlock-alt mx-3 my-1"></i>
+                                کنترل دسترسی
+                            </a>
+                        </li>
+
+                    }
+                    @if (User.Claims.SingleOrDefault(u => u.Type == "role").Value != "مدیریت" && User.Claims.SingleOrDefault(u => u.Type == "role").Value != "معاونت فناوری اطلاعات")
+                    {
+                        <li class="nav-item border-bottom">
+                            <a class="nav-link collapsed" href="#submenu3" data-toggle="collapse" data-target="#submenu3">
+                                <i class="fa fa-exchange fa-lg mr-2"></i>
+                                تبادل مدارک
+                            </a>
+                            <div class="collapse nav-background" id="submenu3" aria-expanded="false">
+                                <ul class="flex-column nav font-weight-light">
+                                    <li class="nav-item">
+                                        <a class="nav-link p-1  border-bottom border-top" asp-controller="ExchangeDocuments" asp-action="DisplayUserTransferDocumentsForm">
+                                            <i class="fa fa-long-arrow-right mx-3 my-1"></i>
+                                            ارسال
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link p-1 border-bottom" asp-controller="ExchangeDocuments" asp-action="DisplayMyExcahange">
+                                            <i class="fa fa-exchange mx-3 my-1"></i>
+                                            تبادلات من
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    }
+                    <li class="nav-item border-bottom">
+                        <a class="nav-link collapsed" href="#submenu5" data-toggle="collapse" data-target="#submenu5">
+                            <i class="fa fa-user fa-lg mr-2"></i>
+                            حساب کاربری
+                        </a>
+                        <div class="collapse nav-background" id="submenu5" aria-expanded="false">
+                            <ul class="flex-column nav font-weight-light">
+                                <li class="nav-item ">
+                                    <a class="nav-link p-1  border-bottom border-top" asp-controller="Management" asp-action="Profile">
+                                        <i class="fa fa-user mx-3 my-1"></i>
+                                        اطلاعات کاربر
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link p-1 border-bottom" asp-controller="Management" asp-action="MyDocuments">
+                                        <i class="fa fa-hdd-o mx-3 my-1"></i>
+                                        مدارک من
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item border-bottom">
+                        <a class="nav-link " asp-controller="Account" asp-action="PLogout">
+                            <i class="fa fa-sign-out fa-lg mr-2"></i>
+                            خروج
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-md-10 p-md-2">
+            <main class="border rounded-lg h-100">
+                @RenderBody()
+            </main>
+
+        </div>
+    </div>
+
+    <footer class="border-top footer text-muted cursor d-print-none row m-0">
+        <div class="mt-md-2 col-6">
+            &copy; <partial name="_yearPartial" /> - تمامی حقوق برای وب‌سایت سامانه <a asp-controller="home" asp-action="index" class="text-decoration-none">ERP</a> محفوظ است.
+        </div>
+        <div class="col-6">
+            <p class="cursor mt-2 mx-1 text-right" style="box-sizing:border-box">Created By : <a href="https://www.linkedin.com/in/ashkan-motahari/" class="text-decoration-none ">Ashkan Amjad</a></p>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/servicesFunctions.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    @RenderSection("Avatar", false)
+    @RenderSection("ChartScripts", required: false)
+</body>
+</html>

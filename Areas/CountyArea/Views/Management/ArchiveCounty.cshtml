@@ -1,0 +1,118 @@
+﻿@model IEnumerable<CountyLevel>
+@{
+    ViewData["Title"] = "بایگانی کارکنان شهرستان - سطح شهرستان";
+}
+<div class="btn btn-outline-primary btn-sm  my-1 mx-3">نمایش بایگانی کارکنان سطح شهرستان</div>
+@if (ViewBag.ActiveUser == true)
+{
+    <div class="alert alert-success w-25 text-center mx-auto mb-md-3 mt-md-n4 cursor" id="activationUser">
+        <p class="help-block my-0">فعال سازی با موفقیت انجام شد.</p>
+    </div>
+    <script>
+        var delay = 5000;
+        setTimeout(function () { document.getElementById("activationUser").classList.add("hidden") }, delay);
+    </script>
+}
+@if (ViewBag.ErrorActiveUser == true)
+{
+    <div class="alert alert-danger w-25 text-center mx-auto mb-md-3 mt-md-n4 cursor" id="errorActiveUser">
+        <p class="help-block my-0">فعال سازی این کاربر ممکن نیست.</p>
+    </div>
+    <script>
+        var delay = 5000;
+        setTimeout(function () { document.getElementById("errorActiveUser").classList.add("hidden") }, delay);
+    </script>
+}
+@if (ViewBag.ErrorIsExsistId == true)
+{
+    <div class="alert alert-danger w-25 text-center mx-auto mb-md-3 mt-md-n4 cursor" id="errorIsExsistId">
+        <p class="help-block my-0 custom-font--4">کاربری با این شناسه هم اکنون فعال است.</p>
+    </div>
+    <script>
+        var delay = 5000;
+        setTimeout(function () { document.getElementById("errorIsExsistId").classList.add("hidden") }, delay);
+    </script>
+}
+<div class="row mx-0 mt-1 p-0">
+    <div class=" col-md-5 p-0 ml-3">
+        <input type="text" id="search" class="form-control w-100 " placeholder="مقداری را وارد کنید ..." autocomplete="off" />
+    </div>
+    <div class=" col-md-3 d-flex justify-content-center">
+        <select class="form-control w-100" id="filter">
+            <option selected>فیلتر جست و جو را انتخاب کنید</option>
+            <option value="0">نام کاربری</option>
+            <option value="2">نام</option>
+            <option value="3">نام خانوادگی</option>
+            <option value="4">نقش</option>
+            <option value="5">تحصیلات</option>
+            <option value="6">تاریخ تولد</option>
+            <option value="7">جنسیت</option>
+            <option value="8">وضعیت استخدامی</option>
+            <option value="9">سابقه بر مبنای روز</option>
+            <option value="11">وضعیت تاهل</option>
+            <option value="12">آدرس سکونت</option>
+            <option value="14">شعبه</option>
+        </select>
+    </div>
+    <div class=" col-md-2 pl-0">
+        <button class="btn btn-info" onclick="search()" id="search-btn">
+            <i class="fa fa-search mx-2"></i>
+        </button>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+<table id="myTable" class="table border table-striped table-bordered mt-2 mx-auto table-custom--2">
+    <thead>
+        <tr>
+            <th scope="col">نام کاربری</th>
+            <th scope="col">رمز عبور</th>
+            <th scope="col">نام</th>
+            <th scope="col">نام خانوادگی</th>
+            <th scope="col">نقش</th>
+            <th scope="col">تحصیلات</th>
+            <th scope="col">تاریخ تولد</th>
+            <th scope="col">جنسیت</th>
+            <th scope="col">وضعیت استخدامی</th>
+            <th scope="col">سابقه<br />(روز)</th>
+            <th scope="col">شماره تماس</th>
+            <th scope="col">وضعیت تاهل</th>
+            <th scope="col">آدرس سکونت</th>
+            <th class="hidden"></th>
+            <th scope="col">شعبه</th>
+            <th scope="col">فعال سازی</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="py-4">@item.nationalCode</td>
+                <td class="py-4">@item.userPass</td>
+                <td class="py-4">@item.fName</td>
+                <td class="py-4">@item.lName</td>
+                <td class="py-4">@item.role</td>
+                <td class="py-4">@item.education</td>
+                <td class="py-4">@item.dateOfBirth</td>
+                <td class="py-4">@item.gender</td>
+                <td class="py-4">@item.employmentStatus</td>
+                <td class="py-4">@item.workingStatus</td>
+                <td class="py-4">@item.tel</td>
+                <td class="py-4">@item.maritalStatus</td>
+                <td class="py-4">@item.address</td>
+                <td class="hidden"></td>
+                <td class="py-4">@item.department</td>
+                <td>
+                    <a class="btn btn-outline-primary rounded-circle cursor-pointer my-2"
+                       href="/CountyArea/Management/ShowActivationMessageCounty/@item.nationalCode">
+                        <i class="fa fa-check custom-font--4"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="alert alert-danger w-25 text-center mx-auto mb-md-3 mt-md-5 hidden cursor" id="notFound">
+    <p class="help-block my-0">کاربری یافت نشد.</p>
+</div>
+    
+

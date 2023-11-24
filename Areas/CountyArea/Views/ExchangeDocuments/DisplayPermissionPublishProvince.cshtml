@@ -1,0 +1,63 @@
+﻿@model TransferDocumentsBetweenLevels
+@using ERP.Convertors
+@{
+    ViewData["Title"] = "درخواست انتشار استان - سطح شهرستان";
+}
+<h6 class="my-3 cursor"><img src="~/icons/grid-icon.png" class="mx-2" />فرم مشخصات تبادل <span class="text-info font-alertLogin ">(@Model.id)</span></h6>
+    <table id="myTable" class="table border table-striped table-bordered mt-2 mx-auto table-custom--4">
+        <thead>
+            <tr>
+                <th scope="col" class="hidden">شناسه</th>
+                <th scope="col">سطح<br />بارگذاری کننده</th>
+                <th scope="col">نام کاربری<br />بارگذاری کننده</th>
+                <th scope="col">معاونت <br />بارگذاری کننده</th>
+                <th scope="col">سطح<br />دریافت کننده</th>
+                <th scope="col">نام کاربری<br />دریافت کننده</th>
+                <th scope="col">معاونت <br />دریافت کننده</th>
+                <th scope="col">استان<br />مبدا</th>
+                <th scope="col">شهرستان<br />مبدا</th>
+                <th scope="col">بخش<br />مبدا</th>
+                <th scope="col">استان<br />مقصد</th>
+                <th scope="col">شهرستان<br />مقصد</th>
+                <th scope="col">بخش<br />مقصد</th>
+                <th scope="col">عنوان</th>
+                <th scope="col">نوع فایل</th>
+                <th scope="col">توضیحات</th>
+                <th scope="col" class="w-25">تاریخ بارگذاری</th>
+                <th scope="col">دریافت</th>
+            </tr>
+        </thead>
+        <tbody>
+
+                <tr>
+                    <td class="hidden">@Model.id</td>
+                    <td>@Model.userUploaderArea</td>
+                    <td>@Model.userUploaderId</td>
+                    <td>@Model.roleUploader</td>
+                    <td>@Model.userReceiverArea</td>
+                    <td>@Model.userReceiverId</td>
+                    <td>@Model.roleReceiver</td>
+                    <td>@Model.ProvinceOrigin</td>
+                    <td>@Model.CountyOrigin</td>
+                    <td>@Model.DistrictOrigin</td>
+                    <td>@Model.ProvinceDestination</td>
+                    <td>@Model.CountyDestination</td>
+                    <td>@Model.DistrictDestination</td>
+                    <td>@Model.title</td>
+                    <td dir="ltr">@Model.fileFormat</td>
+                    <td>
+                        <a class="text-primary cursor-pointer" href="/CountyArea/ExchangeDocuments/ShowPermisssionPublishDescriptionSuperLevel/@Model.id">
+                            <i class="fa fa-external-link fa-2x my-2"></i>
+                        </a>
+                    </td>
+                    <td>@Model.uploadDate.ToShamsi()</td>
+                    <td><a href="/CountyArea/ExchangeDocuments/DownloadDocumentFromDB/@Model.id"><i class="fa fa-download fa-2x text-decoration-none my-2"></i></a></td>
+                </tr>
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center row m-0 p-0 mb-1">
+        <a class="btn btn-primary w-25" href="/CountyArea/ExchangeDocuments/PermissionPublishProvince/@Model.id">انتشار</a>
+        <div class="btn btn-primary mx-1">
+            <a asp-controller="ExchangeDocuments" asp-action="DisplayExcahangeSuperLevel" class="text-decoration-none text-light">&larr;</a>
+        </div>
+    </div>

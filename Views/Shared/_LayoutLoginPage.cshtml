@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="icon" href="~/icons/management .png" />
+    <link rel="stylesheet" href="~/lib/bootstrap-rtl/css/bootstrap-rtl.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/icons/fontawesome/css/font-awesome.min.css" />
+</head>
+<body class="rtl login-background w-100 h-100">
+    <div>
+        @RenderBody()
+        <div class="row m-0  p-0  position-fixed bg-info w-100 header mb-0">
+            <hr class="m-0 shadow-lg" />
+            <div class="col-6">
+                <div class="col-6 my-md-4 text-white-50 footer-login header-font cursor">
+                    &copy; <partial name="_yearPartial" /> - تمامی حقوق برای وب‌سایت سامانه
+                    <a asp-controller="home" asp-action="index" class="text-decoration-none font-weight-bold text-white-50">
+                        ERP
+                    </a>
+                    محففوظ است.
+                </div>
+            </div>
+            <div class="col-6 text-decoration-none rounded-lg d-flex" >
+                <div class="col-6">
+                    <img src="~/icons/footer-logo.png" class="my-md-2" />
+                </div>
+                <div class="col-6 text-right">
+                    <p style="box-sizing:border-box" class="my-4 cursor">Created By : <a href="https://www.linkedin.com/in/ashkan-motahari/" class="text-decoration-none text-black-50">Ashkan Amjad</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "تعیین سطح دسترسی - ERP";
+    Layout = "_LayoutLoginPage";
+}
+
+    <div class="col-12 d-flex justify-content-center">
+        <div class="border border-primary my-5 px-1 rounded-lg bg-light w-50">
+            <p class="mt-2 cursor"><i class="fa fa-navicon text-warning mx-2 my-1 border border-warning rounded-circle p-1 custom-font--3"></i>سطح مورد نظر را انتخاب کنید :</p>
+            <div class="my-5 d-flex flex-column">
+                <a class="btn btn-lg btn-outline-primary mx-5 rounded-0 border-bottom-0 rounded-top-selectLevel" asp-area="ProvinceArea" asp-controller="Account" asp-action="Plogin">
+                    <i class="float-left pt-1">🠬</i>
+                استان
+                </a>
+                <a class="btn btn-lg btn-outline-primary mx-5 rounded-0" asp-area="CountyArea" asp-controller="Account" asp-action="Clogin">
+                    <i class="float-left pt-1">🠬</i>
+                    شهرستان
+                </a>
+                <a class="btn btn-lg btn-outline-primary mx-5 rounded-0 border-top-0 rounded-bottom-selectLevel" asp-area="DistrictArea" asp-controller="Account" asp-action="Dlogin">
+                    <i class="float-left pt-1">🠬</i>
+                    بخش
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+

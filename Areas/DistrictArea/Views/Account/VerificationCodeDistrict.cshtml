@@ -1,0 +1,91 @@
+﻿@model ERP.Models.VerificationCode
+@{
+    ViewData["Title"] = "تایید کد احراز هویت - سطح بخش";
+    Layout = "~/Views/Shared/_LayoutLoginPage.cshtml";
+}
+
+<div class="row d-flex justify-content-center my-md-4 mx-0">
+    <div class="col-md-3 border bg-light p-0 rounded-lg box-form">
+        <div class="border-bottom bg-info col-md-12 py-md-2 rounded-top">
+            @if (ViewBag.SendVerification == true)
+            {
+                <div class="alert alert-success p-1" id="SendVerification">
+                    <p class="help-block my-0 custom-font--4">کد تایید با موفقیت به شماره همراه ارسال شد.</p>
+                </div>
+                <script>
+                    var delay = 5000;
+                    setTimeout(function () { document.getElementById("SendVerification").classList.add("hidden") }, delay);
+                </script>
+            }
+            @if (ViewBag.falseverificationCode == true)
+            {
+                <div class="alert alert-danger p-1" id="falseverificationCode">
+                    <p class="help-block my-0 custom-font--4">کد تایید اشتباه است.</p>
+                </div>
+                <script>
+                    var delay = 5000;
+                    setTimeout(function () { document.getElementById("falseverificationCode").classList.add("hidden") }, delay);
+                </script>
+            }
+            <div class="rounded-circle mx-auto login-logo d-flex align-items-center justify-content-center">
+                <img src="~/icons/login-logo.png" />
+            </div>
+            <h4 class="text-white-50 mt-md-3 cursor text-center">
+                سامانه مدیریت منابع انسانی<br />
+                <span class="login-h4-span">سطح دسترسی بخش</span>
+            </h4>
+        </div>
+        <div class="col-md-12">
+            <form asp-area="DistrictArea" asp-action="VerificationCodeDistrict" asp-controller="Account" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="randomNumber" type="hidden" value="@ViewBag.randomNumber" />
+                <input asp-for="nationalCode" type="hidden" value="@ViewBag.nationalCode" />
+                <p class="mb-1 cursor">تغییر رمز عبور</p>
+                <div class="form-group">
+                    <label asp-for="verificationCode" class="control-label font-weight-bold custom-font--3 text-secondary"></label>
+                    <input asp-for="verificationCode" class="form-control" autocomplete="off" />
+                    <span asp-validation-for="verificationCode" class="text-danger cursor"></span>
+                </div>
+                <p class="custom-font--4 justify-content-center d-flex mb-1 mt-n2 cursor" id="countdown">5:00</p>
+                <script>
+                    const startingMinutes = 5;
+                    let time = startingMinutes * 60;
+                    const countdownEl = document.getElementById('countdown');
+                    setInterval(updateCountdown, 1000);
+                    function updateCountdown() {
+                        const minutes = Math.floor(time / 60);
+                        let seconds = time % 60;
+                        seconds = seconds < 10 ? '0' + seconds : seconds;
+                        countdownEl.innerHTML = `${minutes}:${seconds}`;
+                        time--;
+                        if (minutes == 0 && seconds == 0) {
+                            countdownEl.innerHTML = "زمان به اتمام رسید.";
+                            window.location = "http://localhost:3449/DForgotPassword";
+                        }
+                    }
+                </script>
+                <div class="info alert-info custom-font--5 p-1 font-weight-lighter cursor row mx-1 ">
+                    <div class="col-2 d-flex justify-content-center align-items-center p-0">
+                        <i class=" fa fa-exclamation-circle fa-2x"></i>
+                    </div>
+                    <div class="col-10 pr-2 pl-0">
+                        بعد از اتمام زمان بندی  برای درخواست مجدد ارسال کد تایید از این صفحه خارج می شوید.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="تایید" class="btn btn-primary w-100 mb-md-2 mt-md-3" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row m-0 p-0">
+    <div class="col-12 d-flex justify-content-end ">
+        <div class="button-back d-flex align-items-center justify-content-center rounded-lg mx-md-1 position-fixed bg-primary">
+            <a href="/Dlogin" class="text-decoration-none text-light">&larr;</a>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

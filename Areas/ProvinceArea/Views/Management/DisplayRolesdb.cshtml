@@ -1,0 +1,148 @@
+﻿@model IEnumerable<Role>
+@{
+    ViewData["Title"] = "کنترل دسترسی - سطح استان";
+}
+
+<div class="btn btn-outline-primary btn-sm  my-1 mx-3 cursor">کنترل دسترسی</div>
+@if (ViewBag.DeleteRole == true)
+{
+    <div class="alert alert-success w-25 text-center mx-auto mb-md-3 mt-md-n4 cursor" id="alertDeleteRole">
+        <p class="help-block my-0">حذف نقش با موفقیت انجام شد.</p>
+    </div>
+    <script>
+        var delay = 5000;
+        setTimeout(function () { document.getElementById("alertDeleteRole").classList.add("hidden") }, delay);
+    </script>
+}
+@if (ViewBag.SuccessAddNewRole == true)
+{
+    <div class="alert alert-success w-50 text-center mx-auto mb-md-3 mt-md-n4 cursor" id="alertSuccessAddNewRole">
+        <p class="help-block my-0">اضافه کردن نقش @ViewBag.newRoleTitle  با موفقیت انجام شد.</p>
+    </div>
+    <script>
+        var delay = 5000;
+        setTimeout(function () { document.getElementById("alertSuccessAddNewRole").classList.add("hidden") }, delay);
+    </script>
+}
+@if (ViewBag.ActivationDeletedRole == true)
+{
+    <div class="alert alert-success w-25 text-center mx-auto mb-md-3 mt-md-n4 cursor" id="alertActivationDeletedRole">
+        <p class="help-block my-0">فعال کردن نقش با موفقیت انجام شد.</p>
+    </div>
+    <script>
+        var delay = 5000;
+        setTimeout(function () { document.getElementById("alertActivationDeletedRole").classList.add("hidden") }, delay);
+    </script>
+}
+@if (ViewBag.ErrorAddNewRole == true)
+{
+    <div class="alert alert-danger w-50 text-center mx-auto mb-md-3 mt-md-n4 cursor" id="alertErrorAddNewRole">
+        <p class="help-block my-0">اضافه کردن نقش جدید به دلیل موجود بودن انجام نشد.</p>
+    </div>
+    <script>
+        var delay = 5000;
+        setTimeout(function () { document.getElementById("alertErrorAddNewRole").classList.add("hidden") }, delay);
+    </script>
+}
+@if (ViewBag.ErrorEmptyNewRole == true)
+{
+    <div class="alert alert-danger w-25 text-center mx-auto mb-md-3 mt-md-n4 cursor custom-font--6" id="alertErrorEmptyNewRole">
+        <p class="help-block my-0">عنوانی برای نقش جدید وارد نشده است.</p>
+    </div>
+    <script>
+        var delay = 5000;
+        setTimeout(function () { document.getElementById("alertErrorEmptyNewRole").classList.add("hidden") }, delay);
+    </script>
+}
+@if (ViewBag.ErrorFalseRoleValue == true)
+{
+    <div class="alert alert-danger w-50 text-center mx-auto mb-md-3 mt-md-n4 cursor" id="alertErrorFalseRoleValue">
+        <p class="help-block my-0">عنوانی مناسب برای نقش جدید وارد نشده است.</p>
+    </div>
+    <script>
+        var delay = 5000;
+        setTimeout(function () { document.getElementById("alertErrorFalseRoleValue").classList.add("hidden") }, delay);
+    </script>
+}
+@if (ViewBag.ErrorMax == true)
+{
+    <div class="alert alert-danger w-50 text-center mx-auto mb-md-3 mt-md-n4 cursor" id="alertErrorMax">
+        <p class="help-block my-0">تعداد نقش‌های تعریف شده به حداکثر رسیده است.</p>
+    </div>
+    <script>
+        var delay = 5000;
+        setTimeout(function () { document.getElementById("alertErrorMax").classList.add("hidden") }, delay);
+    </script>
+}
+<table class="table border table-striped table-bordered mt-2 mx-auto w-50">
+    <thead>
+        <tr>
+            <th scope="col" class="py-4">شناسه</th>
+            <th scope="col" class="py-4">عنوان</th>
+            <th scope="col" class="py-4">وضعیت</th>
+            <th scope="col" class="py-4">حذف / فعال کردن</th>
+        </tr>
+    </thead>
+    <tbody class="table-custom--1">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.RoleId</td>
+                <td>@item.RoleTitle</td>
+
+                @if (item.IsDelete == true)
+                {
+                    <td>غیر فعال</td>
+                }
+                else
+                {
+                    <td>فعال</td>
+                }
+
+                <td class="py-3 custom-font--5">
+                    @if (item.RoleTitle == "مدیریت" || item.RoleTitle == "معاونت امور فرا سطح" || item.RoleTitle == "معاونت فناوری اطلاعات")
+                    {
+                        <i class="fa fa-ban fa-2x text-danger"></i>
+                    }
+                    else if (item.IsDelete == false)
+                    {
+                        <a href="/ProvinceArea/Management/ListDeleteRole/@item.RoleId"><i class="fa fa-times fa-2x text-danger text-decoration-none"></i></a>
+                    }
+                    else if (item.IsDelete == true)
+                    {
+                        <a href="/ProvinceArea/Management/ShowActivationMessageRole/@item.RoleId"><i class="fa fa-check fa-2x text-primary "></i></a>
+                    }
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="4" class="p-0">
+                <a class="btn--edit-profile w-100 btn btn-primary btn-sm rounded-0 text-light d-flex align-items-center justify-content-center p-2 cursor-pointer" dir="ltr" onclick="ShowAddRoleAlert()">
+                    <i class="fa fa-lg fa-plus my-1 text-muted text-decoration-none ml-2"></i>اضافه کردن نقش جدید
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
+    <div class="toast border-primary bg-light my-3 p-2 w-100" role="alert" aria-live="assertive" aria-atomic="true" data-delay="100000">
+        <button type="button" class="mb-1 close mx-1" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="toast-header toast-header-bg bg-light pl-0">
+            <img src="~/icons/grid-icon.png" class="mr-2">
+            اضافه کردن نقش جدید
+        </div>
+        <form asp-area="ProvinceArea" asp-controller="Management" asp-action="AddNewRole" class="mt-3 d-flex" method="post">
+            <div class="input-group mb-3 w-100">
+                <div class="input-group-append">
+                    <span class="input-group-text cursor rounded-0">معاونت</span>
+                </div>
+                <input type="text" class="form-control pr-0 rounded-0" name="newRole" />
+            </div>
+            <button class="btn btn-primary pl-0 w-25 h-25 rounded-0 custom-font--6" type="submit">ثبت</button>
+        </form>
+    </div>
+</div>
+
+
