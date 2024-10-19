@@ -2060,6 +2060,7 @@ namespace ERP.Services
             if (IsExistUserDocumentsOnDocumentCountyDB(nationalCode) == true && IsExistUserDocumentsOnDocumentDistrictDB(nationalCode) == true)
             {
                 string deletePathDistrict = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UserAvatar/DistrictArea", nationalCode + ".png");
+
                 if (File.Exists(deletePathDistrict))
                 {
                     File.Delete(deletePathDistrict);
